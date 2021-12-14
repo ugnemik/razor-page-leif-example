@@ -10,6 +10,7 @@
   "profiles": {
     "RazorPageLeifExample": {
       "commandName": "Project",
+      "hotReloadProfile": "aspnetcore",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:7264;http://localhost:5155",
