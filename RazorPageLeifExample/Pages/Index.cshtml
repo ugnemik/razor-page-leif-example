@@ -25,10 +25,11 @@
 
 <ul class="blogs">
     @foreach (var blogItem in blogsPayload.Items) {
+        var blogItemLink = "/blog?id=" + blogItem.Id;
         var blogItemImg = blogItem.Get("thumbnailImage");
         var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItemImg.Asset.Uri;
         <li class="blog-card">
-            <a href="#>">
+            <a href="@blogItemLink">
                 <h2 class="blog-card__title mobile">@blogItem.Get("entryTitle")</h2>
                 <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItemImg.AltText" />
                 <div class="related-blog__content">

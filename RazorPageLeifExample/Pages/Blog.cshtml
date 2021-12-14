@@ -1,0 +1,61 @@
+@page
+@model BlogModel
+@using Zengenti.Contensis.Delivery
+
+@{
+    ViewData["Title"] = "Blog Page";
+    var client = ContensisClient.Create("leif", "https://cms-zenhub.cloud.contensis.com", "ff258f73-0872-4e75-8f9f-7f6e4471808e", "78b47d9e88954d499dd3c0ca78c7db6e-f1c38cd758454e16b417cccb538ef3ba-8115cc35afa44bf0b458b9260e553f37");
+
+    // Get the id from the querystring
+    string BlogId = HttpContext.Request.Query["id"];
+
+    // Get the blog entry - link depth 1 to get linked content
+    var blogPost = client.Entries.Get(BlogId, null, 1);
+
+    // Blog image - linked image
+    var blogImg = blogPost.Get("thumbnailImage");
+    var blogImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogImg.Asset.Uri;
+
+    // Author - linked entry
+    var blogAuthor = blogPost.Get("author");
+    var blogAuthorPhoto = blogAuthor.Get("photo");
+    var blogAuthorPhotoUrl = "http://live.leif.zenhub.contensis.cloud" + blogAuthorPhoto.Asset.Uri;
+
+    // Category -linked entry
+    var blogCategory = blogPost.Get("category");
+
+    // Post body - composer
+    var blogPostBody = blogPost.Get("postBody");
+}
+
+<div class="blog-hero"> 
+  <h1 class="blog-hero__title">@blogPost.Get("entryTitle")</h1>
+  <img class="blog-hero__img" src="@blogImgUrl" alt="blogImg.AltText"/>
+</div>
+<div class="profile">
+  <img class="profile__img" src="@blogAuthorPhotoUrl" alt="@blogAuthorPhoto.AltText" />
+  <span class="profile__name">@blogAuthor.Get("entryTitle")</span>
+  <span class="category">@blogCategory.Get("entryTitle")</span>
+</div>
+<div class="blog__content">
+  <p class="lead">@blogPost.Get("leadParagraph")</p>
+  @foreach(ComposedFieldItem item in blogPostBody)
+    {
+      if (item.Type == "markup")
+      {
+        <div>@Html.Raw(item.Value<string>())</div>
+      }
+      if (item.Type == "image")
+      {
+          var img = item.Value();
+          var imgUrl = "http://live.leif.zenhub.contensis.cloud" + img.Asset.Uri;
+        <div class="inline-img">
+          <img class="inline-img__img" src="@imgUrl" alt="@img.AltText"/>
+          <div class="inline-img__content">
+            <h2 class="inline-img__title">@img.Caption</h2>
+          </div>
+        </div>
+      }
+    }
+
+</div>
