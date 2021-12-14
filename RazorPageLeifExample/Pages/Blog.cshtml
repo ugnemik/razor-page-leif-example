@@ -3,34 +3,38 @@
 @using Zengenti.Contensis.Delivery
 
 @{
-    ViewData["Title"] = "Blog Page";
+    // Connect to the Contensis delivery API
     var client = ContensisClient.Create("leif", "https://cms-zenhub.cloud.contensis.com", "ff258f73-0872-4e75-8f9f-7f6e4471808e", "78b47d9e88954d499dd3c0ca78c7db6e-f1c38cd758454e16b417cccb538ef3ba-8115cc35afa44bf0b458b9260e553f37");
 
     // Get the id from the querystring
     string BlogId = HttpContext.Request.Query["id"];
 
-    // Get the blog entry - link depth 1 to get linked content
+    // Get the entry by id and set link depth to 1 to resolve linked content
     var blogPost = client.Entries.Get(BlogId, null, 1);
 
+    // Add blog title to the page title
+    ViewData["Title"] = blogPost.Get("entryTitle");
+
     // Blog image - linked image
+    var imageUrlPrefix = "http://live.leif.zenhub.contensis.cloud";
     var blogImg = blogPost.Get("thumbnailImage");
-    var blogImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogImg.Asset.Uri;
+    var blogImgUrl = imageUrlPrefix + blogImg.Asset.Uri;
 
     // Author - linked entry
     var blogAuthor = blogPost.Get("author");
     var blogAuthorPhoto = blogAuthor.Get("photo");
-    var blogAuthorPhotoUrl = "http://live.leif.zenhub.contensis.cloud" + blogAuthorPhoto.Asset.Uri;
+    var blogAuthorPhotoUrl = imageUrlPrefix + blogAuthorPhoto.Asset.Uri;
 
-    // Category -linked entry
+    // Category - linked entry
     var blogCategory = blogPost.Get("category");
 
     // Post body - composer
     var blogPostBody = blogPost.Get("postBody");
 }
 
-<div class="blog-hero"> 
+<div class="blog-hero">
   <h1 class="blog-hero__title">@blogPost.Get("entryTitle")</h1>
-  <img class="blog-hero__img" src="@blogImgUrl" alt="blogImg.AltText"/>
+  <img class="blog-hero__img" src="@blogImgUrl" alt="@blogImg.AltText"/>
 </div>
 <div class="profile">
   <img class="profile__img" src="@blogAuthorPhotoUrl" alt="@blogAuthorPhoto.AltText" />
@@ -48,7 +52,7 @@
       if (item.Type == "image")
       {
           var img = item.Value();
-          var imgUrl = "http://live.leif.zenhub.contensis.cloud" + img.Asset.Uri;
+          var imgUrl = imageUrlPrefix + img.Asset.Uri;
         <div class="inline-img">
           <img class="inline-img__img" src="@imgUrl" alt="@img.AltText"/>
           <div class="inline-img__content">
