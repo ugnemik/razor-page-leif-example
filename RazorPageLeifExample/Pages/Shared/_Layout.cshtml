@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RazorPagesContensis</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RazorPagesContensis.styles.css" asp-append-version="true" />
+</head>
+<body>
+<header class="header">
+  <a href="/"><img class="logo" src="/svgs/logo.svg" alt="Leif" /></a>
+  <nav id="nav" role="navigation" aria-expanded="false">
+    <div class="hamburger">
+      <label for="hamburger-checkbox" id="hamburger-label" class="sr-only">Open menu</label>
+      <input type="checkbox" id="hamburger-checkbox" onchange="noScroll()" />
+      <div class="hamburger__container--outer" aria-hidden="true">
+        <div class="hamburger__container--inner">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <ul id="menu" class="menu" aria-hidden="true">
+        <li><a href="/">About</a></li>
+        <li><a href="/">Blog</a></li>
+        <li><a href="/">Products</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<main>
+    @RenderBody()
+</main>
+<footer class="footer">
+  <a class="footer__logo" href="/"><img src="/svgs/logo.svg" alt="Leif" /></a>
+  <div class="footer__socials">
+    <a href="https://en-gb.facebook.com/">
+      <img src="/svgs/facebook.svg" alt="Facebook" />
+      <span class="sr-only">Facebook</span>
+    </a>
+    <a href="https://www.linkedin.com/showcase/contensis">
+      <img src="/svgs/linkedin.svg" alt="Linkedin" />
+      <span class="sr-only">Contensis LinkedIn</span>
+    </a>
+    <a href="https://twitter.com/Contensis?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+      <img src="/svgs/twitter.svg" alt="Twitter" />
+      <span class="sr-only">Contensis Twitter</span>
+    </a>
+  </div>
+  <div class="footer__copyright">
+    <!-- Using JavasScript to get todays date and its full year -->
+    <p>© Leif</p>
+  </div>
+</footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
