@@ -25,19 +25,18 @@
 
 <ul class="blogs">
     @foreach (var blogItem in blogsPayload.Items) {
+        // Prepend link and image url
         var blogItemLink = "/blog?id=" + blogItem.Id;
-        var blogItemImg = blogItem.Get("thumbnailImage");
-        var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItemImg.Asset.Uri;
-        var blogItemCategory = blogItem.Get("category");
+        var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItem.Get("thumbnailImage").Asset.Uri;
         <li class="blog-card">
             <a href="@blogItemLink">
                 <h2 class="blog-card__title mobile">@blogItem.Get("entryTitle")</h2>
-                <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItemImg.AltText" />
+                <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItem.Get("thumbnailImage").AltText" />
                 <div class="related-blog__content">
                 <h2 class="blog-card__title desktop">@blogItem.Get("entryTitle")</h2>
                 <!-- Truncate text as it can sometimes be too long -->
                 <p class="blog-card__text">@blogItem.Get("leadParagraph").Substring(0, Math.Min(blogItem.Get("leadParagraph").Length, 124))&hellip;</p>
-                <span class="category">@blogItemCategory.Get("entryTitle")</span>
+                <span class="category">@blogItem.Get("category").Get("entryTitle")</span>
                 </div>
             </a>
         </li>

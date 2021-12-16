@@ -15,35 +15,31 @@
     // Add blog title to the page title
     ViewData["Title"] = blogPost.Get("entryTitle");
 
-    // Blog image - linked image
+    // Images - add src prefix (Remove when using blocks)
     var imageUrlPrefix = "http://live.leif.zenhub.contensis.cloud";
-    var blogImg = blogPost.Get("thumbnailImage");
-    var blogImgUrl = imageUrlPrefix + blogImg.Asset.Uri;
+    var blogImgUrl = imageUrlPrefix + blogPost.Get("thumbnailImage").Asset.Uri;
+    var blogAuthorPhotoUrl = imageUrlPrefix + blogPost.Get("author").Get("photo").Asset.Uri;
 
-    // Author - linked entry
-    var blogAuthor = blogPost.Get("author");
-    var blogAuthorPhoto = blogAuthor.Get("photo");
-    var blogAuthorPhotoUrl = imageUrlPrefix + blogAuthorPhoto.Asset.Uri;
-
-    // Category - linked entry
-    var blogCategory = blogPost.Get("category");
-
-    // Post body - composer
-    var blogPostBody = blogPost.Get("postBody");
 }
 
 <div class="blog-hero">
-  <h1 class="blog-hero__title">@blogPost.Get("entryTitle")</h1>
-  <img class="blog-hero__img" src="@blogImgUrl" alt="@blogImg.AltText"/>
+  <h1 class="blog-hero__title">
+    @blogPost.Get("entryTitle")
+  </h1>
+  <img class="blog-hero__img" src="@blogImgUrl" alt="@blogPost.Get("thumbnailImage").AltText"/>
 </div>
 <div class="profile">
-  <img class="profile__img" src="@blogAuthorPhotoUrl" alt="@blogAuthorPhoto.AltText" />
-  <span class="profile__name">@blogAuthor.Get("entryTitle")</span>
-  <span class="category">@blogCategory.Get("entryTitle")</span>
+  <img class="profile__img" src="@blogAuthorPhotoUrl" alt="@blogPost.Get("author").Get("photo").AltText" />
+  <span class="profile__name">
+    @blogPost.Get("author").Get("entryTitle")
+  </span>
+  <span class="category">
+    @blogPost.Get("category").Get("entryTitle")
+  </span>
 </div>
 <div class="blog__content">
   <p class="lead">@blogPost.Get("leadParagraph")</p>
-  @foreach(ComposedFieldItem item in blogPostBody)
+  @foreach(ComposedFieldItem item in blogPost.Get("postBody"))
     {
       if (item.Type == "markup")
       {
@@ -51,12 +47,13 @@
       }
       if (item.Type == "image")
       {
-          var img = item.Value();
-          var imgUrl = imageUrlPrefix + img.Asset.Uri;
+          var imgUrl = imageUrlPrefix + item.Value().Asset.Uri;
         <div class="inline-img">
-          <img class="inline-img__img" src="@imgUrl" alt="@img.AltText"/>
+          <img class="inline-img__img" src="@imgUrl" alt="@item.Value().AltText"/>
           <div class="inline-img__content">
-            <h2 class="inline-img__title">@img.Caption</h2>
+            <h2 class="inline-img__title">
+              @item.Value().Caption
+            </h2>
           </div>
         </div>
       }
