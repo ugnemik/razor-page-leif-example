@@ -13,11 +13,14 @@ public class BlogModel : PageModel
     {
         _logger = logger;
     }
+
+    // Set the model
    public BlogPost BlogPostModel { get; set; }
 
     public void OnGet()
     {
         // Connect to the Contensis delivery API
+        // Connection details set in /Program.cs
         var client = ContensisClient.Create();
 
         // Get the id from the querystring

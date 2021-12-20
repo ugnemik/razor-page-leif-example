@@ -22,7 +22,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+// Contensis client connection details
 ContensisClient.Configure(new ContensisClientConfiguration(
     rootUrl: "https://cms-zenhub.cloud.contensis.com",
     projectApiId: "leif",
