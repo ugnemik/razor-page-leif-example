@@ -1,42 +1,27 @@
 ﻿@page
 @model IndexModel
-@using Zengenti.Contensis.Delivery
-@using Zengenti.Search
+
 
 @{
-    ViewData["Title"] = "Blogs";
-
-    // Connect to the Contensis delivery API
-    var client = ContensisClient.Create("leif", "https://cms-zenhub.cloud.contensis.com", "ff258f73-0872-4e75-8f9f-7f6e4471808e", "78b47d9e88954d499dd3c0ca78c7db6e-f1c38cd758454e16b417cccb538ef3ba-8115cc35afa44bf0b458b9260e553f37");
-
-    // Query the api for entries with a content type of "blogPost"
-    // Get the latest versions even if not yet published
-    var blogsQuery = new Query(
-        Op.EqualTo("sys.contentTypeId", "blogPost"),
-        Op.EqualTo("sys.versionStatus", "latest")
-    );
-
-    // Get a list of entries matching the blogsQuery
-    var blogsPayload = client.Entries.Search(blogsQuery);
 
 }
 
 <h1 class="blogs__title">Our blogs</h1>
 
 <ul class="blogs">
-    @foreach (var blogItem in blogsPayload.Items) {
+    @foreach (var blogItem in Model.BlogsPayload.Items) {
         // Prepend link and image url
-        var blogItemLink = "/blog?id=" + blogItem.Id;
-        var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItem.Get("thumbnailImage").Asset.Uri;
+        var blogItemLink = "/blog?id=" + blogItem.Sys.Id;
+        var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri;
         <li class="blog-card">
             <a href="@blogItemLink">
-                <h2 class="blog-card__title mobile">@blogItem.Get("entryTitle")</h2>
-                <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItem.Get("thumbnailImage").AltText" />
+                <h2 class="blog-card__title mobile">@blogItem.Title</h2>
+                <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItem.ThumbnailImage.AltText" />
                 <div class="related-blog__content">
-                <h2 class="blog-card__title desktop">@blogItem.Get("entryTitle")</h2>
+                <h2 class="blog-card__title desktop">@blogItem.Title</h2>
                 <!-- Truncate text as it can sometimes be too long -->
-                <p class="blog-card__text">@blogItem.Get("leadParagraph").Substring(0, Math.Min(blogItem.Get("leadParagraph").Length, 124))&hellip;</p>
-                <span class="category">@blogItem.Get("category").Get("entryTitle")</span>
+                <p class="blog-card__text">@blogItem.LeadParagraph.Substring(0, Math.Min(blogItem.LeadParagraph.Length, 124))&hellip;</p>
+                <span class="category">@blogItem.Category.Name</span>
                 </div>
             </a>
         </li>

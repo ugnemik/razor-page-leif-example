@@ -1,3 +1,4 @@
+using Zengenti.Contensis.Delivery;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,5 +22,12 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+ContensisClient.Configure(new ContensisClientConfiguration(
+    rootUrl: "https://cms-zenhub.cloud.contensis.com",
+    projectApiId: "leif",
+    clientId: "ff258f73-0872-4e75-8f9f-7f6e4471808e",
+    sharedSecret: "78b47d9e88954d499dd3c0ca78c7db6e-f1c38cd758454e16b417cccb538ef3ba-8115cc35afa44bf0b458b9260e553f37"
+));
 
 app.Run();

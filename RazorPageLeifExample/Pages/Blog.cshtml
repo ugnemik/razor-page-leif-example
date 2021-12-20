@@ -1,5 +1,58 @@
 @page
 @model BlogModel
+
+<div class="blog-hero">
+  <h1 class="blog-hero__title">
+    @Model.BlogPostModel.Title
+  </h1>
+  @if(Model.BlogPostModel.ThumbnailImage != null) {
+    <img class="blog-hero__img" src="@("http://live.leif.zenhub.contensis.cloud" + Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
+  }
+</div>
+@if (Model.BlogPostModel.Author != null){
+  <div class="profile">
+    @if (Model.BlogPostModel.Author.Photo != null){
+      <img class="profile__img" src="@("http://live.leif.zenhub.contensis.cloud" + Model.BlogPostModel.Author.Photo.Asset.Uri)" alt="@Model.BlogPostModel.Author.Photo.AltText" />
+    }
+    <span class="profile__name">
+      @Model.BlogPostModel.Author.Name
+    </span>
+    @if (Model.BlogPostModel.Category != null){
+    <span class="category">
+      @Model.BlogPostModel.Category.Name
+    </span>
+    }
+  </div>
+}
+
+
+<div class="blog__content">
+  <p class="lead">@Model.BlogPostModel.LeadParagraph</p>
+  @if (Model.BlogPostModel.PostBody != null){
+    @foreach(var item in Model.BlogPostModel.PostBody)
+      {
+        if (item.Type == "markup")
+        {
+          <div>@Html.Raw(item.Value<string>())</div>
+        }
+        if (item.Type == "image")
+        {
+          <div class="inline-img">
+            <img class="inline-img__img" src="@("http://live.leif.zenhub.contensis.cloud" +item.Value().Asset.Uri)" alt="@item.Value().AltText"/>
+            <div class="inline-img__content">
+              <h2 class="inline-img__title">
+                @item.Value().Caption
+              </h2>
+            </div>
+          </div>
+        }
+      }
+  }
+
+</div>
+
+@* @page
+@model BlogModel
 @using Zengenti.Contensis.Delivery
 @using RazorPageLeifExample.Models
 @{
@@ -70,4 +123,4 @@
       }
     }
 
-</div>
+</div> *@

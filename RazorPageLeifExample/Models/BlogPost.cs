@@ -5,12 +5,8 @@ namespace RazorPageLeifExample.Models {
         public string? Title { get; set; }
         public string? LeadParagraph { get; set; }
         public Image? ThumbnailImage { get; set; }
-        public Person? Author { get; set; }
+        public Person? Author => Resolve<Person>("author");
+        public Category? Category => Resolve<Category>("category");
         public ComposedField? PostBody { get; set; }
-    }
-
-    public class Person: EntryModel  {
-        public string? Name { get; set; }
-        public Image? Photo { get; set; }
     }
 }
