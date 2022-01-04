@@ -5,18 +5,21 @@
 
 <ul class="blogs">
     @foreach (var blogItem in Model.BlogsPayload.Items) {
-        // Prepend link and image url
-        var blogItemLink = "/blog?id=" + blogItem.Sys.Id;
-        var blogItemImgUrl = "http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri;
         <li class="blog-card">
-            <a href="@blogItemLink">
+            <a href="@("/blog?id=" + blogItem.Sys.Id)">
                 <h2 class="blog-card__title mobile">@blogItem.Title</h2>
-                <img class="blog-card__img" src="@blogItemImgUrl" alt="@blogItem.ThumbnailImage.AltText" />
+                @if (blogItem.ThumbnailImage != null) {
+                    <img class="blog-card__img" src="@("http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="@blogItem.ThumbnailImage.AltText" />
+                }
                 <div class="related-blog__content">
                 <h2 class="blog-card__title desktop">@blogItem.Title</h2>
                 <!-- Truncate text as it can sometimes be too long -->
-                <p class="blog-card__text">@blogItem.LeadParagraph.Substring(0, Math.Min(blogItem.LeadParagraph.Length, 124))&hellip;</p>
-                <span class="category">@blogItem.Category.Name</span>
+                @if (blogItem.LeadParagraph != null) {
+                    <p class="blog-card__text">@blogItem.LeadParagraph.Substring(0, Math.Min(blogItem.LeadParagraph.Length, 124))&hellip;</p>
+                }
+                @if (blogItem.Category != null) {
+                    <span class="category">@blogItem.Category.Name</span>
+                }
                 </div>
             </a>
         </li>
