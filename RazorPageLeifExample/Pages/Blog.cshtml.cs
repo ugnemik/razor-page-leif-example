@@ -15,7 +15,7 @@ public class BlogModel : PageModel
     }
 
     // Set the model
-   public BlogPost BlogPostModel { get; set; }
+   public BlogPost? BlogPostModel { get; set; }
 
     public void OnGet()
     {

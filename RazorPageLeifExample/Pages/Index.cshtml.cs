@@ -16,7 +16,7 @@ public class IndexModel : PageModel
         _logger = logger;
     }
     // Set the model
-    public PagedList<BlogPost> BlogsPayload { get; set; }
+    public PagedList<BlogPost>? BlogsPayload { get; set; }
     public void OnGet()
     {
         ViewData["Title"] = "Blogs";
