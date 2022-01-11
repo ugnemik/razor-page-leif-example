@@ -1,7 +1,6 @@
 @page
 @model BlogModel
 
-@if (Model.BlogPostModel != null){
 <div class="blog-hero">
   <h1 class="blog-hero__title">
     @Model.BlogPostModel.Title
@@ -51,9 +50,7 @@
   }
 
 </div>
-} else {
-  <p>No blog found</p>
-}
+
 @* @page
 @model BlogModel
 @using Zengenti.Contensis.Delivery

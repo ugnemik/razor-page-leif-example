@@ -21,6 +21,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseStatusCodePagesWithReExecute("/Error");
+
 app.MapRazorPages();
 // Contensis client connection details
 ContensisClient.Configure(new ContensisClientConfiguration(

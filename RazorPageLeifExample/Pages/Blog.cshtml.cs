@@ -17,7 +17,7 @@ public class BlogModel : PageModel
     // Set the model
    public BlogPost? BlogPostModel { get; set; }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         // Connect to the Contensis delivery API
         // Connection details set in /Program.cs
@@ -29,8 +29,16 @@ public class BlogModel : PageModel
         // Get the entries by the id
         BlogPostModel = client.Entries.Get<BlogPost>(BlogId);
 
+        // return a 404 if BlogId is invalid
+        if (BlogPostModel == null)
+        {
+            return NotFound();
+        }
+
         // Set the page title to the blog title
         ViewData["Title"] = BlogPostModel.Title;
+
+        return Page();
     }
 
 
