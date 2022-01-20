@@ -52,24 +52,20 @@ The Contensis delivery API helper contains classes to perform the repetitive tas
 Include an instance of ```Zengenti.Contensis.Delivery```:
 
 ```c#
+// Program.cs
 using Zengenti.Contensis.Delivery;
 ```
 
-### Set the connection details
+### Set the connection details globally
 
 ```c#
+// Program.cs
 ContensisClient.Configure(new ContensisClientConfiguration(
     rootUrl: "<root-url>",
     projectApiId: "<projectApiId>",
     clientId: "clientId",
     sharedSecret: "<sharedSecret>"
 ));
-```
-
-### Connect to the Contensis Delivery API
-
-```c#
-var client = ContensisClient.Create();
 ```
 
 ### Create a class for each Content Type
@@ -81,20 +77,25 @@ E.g. the Blog Content Type:
 using Zengenti.Contensis.Delivery;
 
 namespace RazorPageLeifExample.Models {
-    public class BlogPost: EntryModel {
-        public string Title { get; set; } = null!;
+    public class BlogPost: EntryModel { // EntryModel gives us access to the Sys object for ID
+        public string Title { get; set; } = null!; // Null forgiving - Title can't be null
         public string? LeadParagraph { get; set; }
         public Image? ThumbnailImage { get; set; }
-        public Person? Author => Resolve<Person>("author");
-        public Category? Category => Resolve<Category>("category");
+        public Person? Author => Resolve<Person>("author"); // Resolve linked entry so fields are available
+        public Category? Category => Resolve<Category>("category"); // Resolve linked entry so fields are available
         public ComposedField? PostBody { get; set; }
     }
 }
 ```
 
-
-
 ### Get a single blog entry by its id
+
+#### Connect to the Contensis Delivery API
+
+```c#
+// Pages/Blog.cshtml.cs
+var client = ContensisClient.Create();
+```
 
 Pass this class to `client.Entries.Get` to return a strongly typed `BlogPost`.
 
