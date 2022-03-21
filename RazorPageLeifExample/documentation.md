@@ -23,10 +23,10 @@ This app will pull in data from the Leif project in Contensis. The Razor Pages d
 
 To get started:
 
-* Clone the Contensis Razor Pages project *** Make sure we update the example here ***
+* Clone the Contensis Razor Pages project
 
 ```shell
-git clone https://path-to-the-project-in-github
+git clone https://gitlab.zengenti.com/ps-projects/leif-example-sites/razor-page-leif-example.git
 ```
 
 * Change directory to RazorPageLeifExample
@@ -130,4 +130,64 @@ public void OnGet()
     <img class="blog-hero__img" src="@("http://live.leif.zenhub.contensis.cloud" + Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
   }
 </div>
+```
+
+### Get a list of blogs
+
+More information on search queries can be found here: [https://www.contensis.com/help-and-docs/apis/delivery-dotnet/search/query-operators](https://www.contensis.com/help-and-docs/apis/delivery-dotnet/search/query-operators)
+
+```c# 
+// Pages/Index.cshtml.cs
+// Set the model
+  public PagedList<BlogPost>? BlogsPayload { get; set; }
+  public void OnGet()
+  {
+      ViewData["Title"] = "Blogs";
+
+      // Connect to the Contensis delivery API
+      // Connection details set in /Program.cs
+      var client = ContensisClient.Create();
+
+      // Query the api for entries with a content type of "blogPost"
+      // Get the latest versions even if not yet published
+      var blogsQuery = new Query(
+          Op.EqualTo("sys.contentTypeId", "blogPost"),
+          Op.EqualTo("sys.versionStatus", "latest")
+      );
+
+      // Get a list of entries matching the blogsQuery
+      BlogsPayload = client.Entries.Search<BlogPost>(blogsQuery);
+  }
+```
+
+### Use the model in the view
+
+```html
+<!-- Pages/Index.cshtml -->
+@if ((Model.BlogsPayload != null) && (Model.BlogsPayload.TotalCount > 0)) {
+    <ul class="blogs">
+        @foreach (var blogItem in Model.BlogsPayload.Items) {
+            <li class="blog-card">
+                <a href="@("/blog?id=" + blogItem.Sys.Id)">
+                    <h2 class="blog-card__title mobile">@blogItem.Title</h2>
+                    @if (blogItem.ThumbnailImage != null) {
+                        <img class="blog-card__img" src="@("http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="@blogItem.ThumbnailImage.AltText" />
+                    }
+                    <div class="related-blog__content">
+                    <h2 class="blog-card__title desktop">@blogItem.Title</h2>
+                    <!-- Truncate text as it can sometimes be too long -->
+                    @if (blogItem.LeadParagraph != null) {
+                        <p class="blog-card__text">@blogItem.LeadParagraph.Substring(0, Math.Min(blogItem.LeadParagraph.Length, 124))&hellip;</p>
+                    }
+                    @if (blogItem.Category != null) {
+                        <span class="category">@blogItem.Category.Name</span>
+                    }
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+} else {
+    <p>No blogs found</p>
+}
 ```
