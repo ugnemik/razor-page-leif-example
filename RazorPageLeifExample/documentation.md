@@ -127,7 +127,7 @@ public void OnGet()
     @Model.BlogPostModel.Title
   </h1>
   @if(Model.BlogPostModel.ThumbnailImage != null) {
-    <img class="blog-hero__img" src="@("http://live.leif.zenhub.contensis.cloud" + Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
+    <img class="blog-hero__img" src="@("http://live.leif.contensis.cloud" + Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
   }
 </div>
 ```
@@ -171,7 +171,7 @@ More information on search queries can be found here: [https://www.contensis.com
                 <a href="@("/blog?id=" + blogItem.Sys.Id)">
                     <h2 class="blog-card__title mobile">@blogItem.Title</h2>
                     @if (blogItem.ThumbnailImage != null) {
-                        <img class="blog-card__img" src="@("http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="@blogItem.ThumbnailImage.AltText" />
+                        <img class="blog-card__img" src="@("http://live.leif.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="@blogItem.ThumbnailImage.AltText" />
                     }
                     <div class="related-blog__content">
                     <h2 class="blog-card__title desktop">@blogItem.Title</h2>

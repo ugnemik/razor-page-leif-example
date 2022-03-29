@@ -8,7 +8,7 @@
             <li class="blog-card">
                 <h2 class="blog-card__title mobile"><a class="blog-card__link" href="@("/blog?id=" + blogItem.Sys.Id)">@blogItem.Title</a></h2>
                 @if (blogItem.ThumbnailImage != null) {
-                    <img class="blog-card__img" src="@("http://live.leif.zenhub.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="" />
+                    <img class="blog-card__img" src="@("http://live.leif.contensis.cloud" + blogItem.ThumbnailImage.Asset.Uri)" alt="" />
                 }
                 <div class="related-blog__content">
                 <h2 class="blog-card__title desktop"><a class="blog-card__link" href="@("/blog?id=" + blogItem.Sys.Id)">@blogItem.Title</a></h2>
