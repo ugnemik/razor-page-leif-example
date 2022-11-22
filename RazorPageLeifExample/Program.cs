@@ -24,6 +24,7 @@ app.UseAuthorization();
 app.UseStatusCodePagesWithReExecute("/Error");
 
 app.MapRazorPages();
+
 // Contensis client connection details
 ContensisClient.Configure(new ContensisClientConfiguration(
     rootUrl: "https://cms-leif.cloud.contensis.com",
