@@ -15,7 +15,7 @@ public class BlogModel : PageModel
     }
 
     // Set the model
-   public BlogPost? BlogPostModel { get; set; }
+    public BlogPost? BlogPostModel { get; set; }
 
     public IActionResult OnGet()
     {
@@ -23,11 +23,24 @@ public class BlogModel : PageModel
         // Connection details set in /Program.cs
         var client = ContensisClient.Create();
 
-        // Get the id from the querystring
-        string BlogId = HttpContext.Request.Query["id"];
+        var entryId = HttpContext.Request.Query["id"];
 
-        // Get the entries by the id
-        BlogPostModel = client.Entries.Get<BlogPost>(BlogId);
+        if (!string.IsNullOrEmpty(entryId))
+        {
+            // Get the id from the querystring
+            string BlogId = HttpContext.Request.Query["id"];
+
+            // Get the entries by the id
+            BlogPostModel = client.Entries.Get<BlogPost>(BlogId);
+        }
+        else
+        {
+            // Get the blog post entry from the current path
+            var node = client.Nodes.GetByPath(HttpContext.Request.Path);
+
+            if (node != null)
+                BlogPostModel = node.Entry<BlogPost>();
+        }
 
         // return a 404 if BlogId is invalid
         if (BlogPostModel == null)
@@ -40,7 +53,4 @@ public class BlogModel : PageModel
 
         return Page();
     }
-
-
 }
-

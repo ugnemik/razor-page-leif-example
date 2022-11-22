@@ -3,7 +3,17 @@ using Zengenti.Contensis.Delivery;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services
+    .AddRazorPages()
+    .AddRazorPagesOptions(
+        (options) =>
+        {
+            // Override root to always render blog listing
+            options.Conventions.AddPageRoute("/Blog/Index", "/");
+            // Use a parameterised route template to render a blog post
+            options.Conventions.AddPageRoute("/Blog/BlogPost", "/blog/{slug}");
+        }
+    );
 
 var app = builder.Build();
 
