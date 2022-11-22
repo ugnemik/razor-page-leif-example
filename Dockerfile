@@ -13,6 +13,7 @@ RUN dotnet build $csproj -c Release -o /app/build
 RUN dotnet publish $csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS final
+ENV ASPNETCORE_URLS=http://*:3001
 WORKDIR /app
 COPY --from=build /app/publish .
 EXPOSE 3001
