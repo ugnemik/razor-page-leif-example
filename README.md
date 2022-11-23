@@ -10,7 +10,7 @@
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [C# for Visual Studio Code (latest version)](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-* [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+* [.NET 7.0 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
 
 ## Run it
 
