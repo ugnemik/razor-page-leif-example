@@ -23,15 +23,12 @@ public class BlogModel : PageModel
         // Connection details set in /Program.cs
         var client = ContensisClient.Create();
 
-        var entryId = HttpContext.Request.Query["id"];
+        var entryId = HttpContext.Request.Query["entryId"];
 
         if (!string.IsNullOrEmpty(entryId))
         {
-            // Get the id from the querystring
-            string BlogId = HttpContext.Request.Query["id"];
-
             // Get the entries by the id
-            BlogPostModel = client.Entries.Get<BlogPost>(BlogId);
+            BlogPostModel = client.Entries.Get<BlogPost>(entryId);
         }
         else
         {

@@ -3,19 +3,19 @@
 
 <div class="blog-hero">
   <h1 class="blog-hero__title">
-    @Model.BlogPostModel.Title
+    @Model.BlogPostModel?.Title
   </h1>
-  @if(Model.BlogPostModel.ThumbnailImage != null) {
+  @if(Model.BlogPostModel?.ThumbnailImage != null) {
     <img class="blog-hero__img" src="@(Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
   }
 </div>
-@if (Model.BlogPostModel.Author != null){
+@if (Model.BlogPostModel?.Author != null){
   <div class="profile">
-    @if (Model.BlogPostModel.Author.Photo != null){
+    @if (Model.BlogPostModel.Author?.Photo != null){
       <img class="profile__img" src="@(Model.BlogPostModel.Author.Photo.Asset.Uri)" alt="@Model.BlogPostModel.Author.Photo.AltText" />
     }
     <span class="profile__name">
-      @Model.BlogPostModel.Author.Name
+      @Model.BlogPostModel.Author?.Name
     </span>
     @if (Model.BlogPostModel.Category != null){
     <span class="category">
@@ -27,8 +27,8 @@
 
 
 <div class="blog__content">
-  <p class="lead">@Model.BlogPostModel.LeadParagraph</p>
-  @if (Model.BlogPostModel.PostBody != null){
+  <p class="lead">@Model.BlogPostModel?.LeadParagraph</p>
+  @if (Model.BlogPostModel?.PostBody != null){
     @foreach(var item in Model.BlogPostModel.PostBody)
       {
         if (item.Type == "markup")
