@@ -1,6 +1,6 @@
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ENV srcdir "RazorPageLeifExample"
 ENV csproj "RazorPageLeifExample.csproj"
 WORKDIR /src
@@ -12,7 +12,7 @@ COPY $srcdir .
 RUN dotnet build $csproj -c Release -o /app/build
 RUN dotnet publish $csproj -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS final
 ENV ASPNETCORE_URLS=http://*:3001
 WORKDIR /app
 COPY --from=build /app/publish .

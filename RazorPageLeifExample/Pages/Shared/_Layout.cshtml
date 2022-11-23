@@ -8,12 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap"></noscript>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RazorPageLeifExample.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/static/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/static/css/styles.css" asp-append-version="true" />
 </head>
 <body>
 <header class="header">
-  <a href="/"><img class="logo" src="/svgs/logo.svg" alt="Leif" /></a>
+  <a href="/"><img class="logo" src="/static/svgs/logo.svg" alt="Leif" /></a>
   <nav id="nav" role="navigation" aria-expanded="false">
     <div class="hamburger">
       <label for="hamburger-checkbox" id="hamburger-label" class="sr-only">Open menu</label>
@@ -38,18 +38,18 @@
     @RenderBody()
 </main>
 <footer class="footer">
-  <a class="footer__logo" href="/"><img src="/svgs/logo.svg" alt="Leif" /></a>
+  <a class="footer__logo" href="/"><img src="/static/svgs/logo.svg" alt="Leif" /></a>
   <div class="footer__socials">
     <a href="https://en-gb.facebook.com/">
-      <img src="/svgs/facebook.svg" alt="Facebook" />
+      <img src="/static/svgs/facebook.svg" alt="Facebook" />
       <span class="sr-only">Facebook</span>
     </a>
     <a href="https://www.linkedin.com/showcase/contensis">
-      <img src="/svgs/linkedin.svg" alt="Linkedin" />
+      <img src="/static/svgs/linkedin.svg" alt="Linkedin" />
       <span class="sr-only">Contensis LinkedIn</span>
     </a>
     <a href="https://twitter.com/Contensis?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-      <img src="/svgs/twitter.svg" alt="Twitter" />
+      <img src="/static/svgs/twitter.svg" alt="Twitter" />
       <span class="sr-only">Contensis Twitter</span>
     </a>
   </div>
@@ -59,7 +59,7 @@
   </div>
 </footer>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/static/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
