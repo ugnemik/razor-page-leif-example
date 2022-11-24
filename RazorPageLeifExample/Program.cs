@@ -9,7 +9,7 @@ builder.Services
         (options) =>
         {
             // Override root to always render blog listing
-            options.Conventions.AddPageRoute("/Blog/Index", "/");
+            options.Conventions.AddPageRoute("/Blog/BlogPost", "/");
             // Use a parameterised route template to render a blog post
             options.Conventions.AddPageRoute("/Blog/BlogPost", "/blog/{slug}");
         }
@@ -27,14 +27,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseRouting();
 app.UseHttpLogging();
-
-app.UseAuthorization();
-
 app.UseStatusCodePagesWithReExecute("/Error");
-
 app.MapRazorPages();
 
 // Contensis client connection details

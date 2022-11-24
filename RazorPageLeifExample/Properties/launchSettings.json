@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:12724",
+      "applicationUrl": "http://localhost:3001",
       "sslPort": 44322
     }
   },
@@ -13,7 +13,8 @@
       "hotReloadProfile": "aspnetcore",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:7264;http://localhost:5155",
+      "launchUrl": "?entryId=6d87962a-fb32-4222-b621-dc0c43541197",
+      "applicationUrl": "http://localhost:3001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
