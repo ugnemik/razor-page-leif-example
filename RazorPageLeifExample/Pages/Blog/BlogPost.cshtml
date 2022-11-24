@@ -1,18 +1,20 @@
 @page
+@using Zengenti.Contensis.Delivery
+@using RazorPageLeifExample.Models
 @model BlogModel
 
 <div class="blog-hero">
   <h1 class="blog-hero__title">
     @Model.BlogPostModel?.Title
   </h1>
-  @if(Model.BlogPostModel?.ThumbnailImage != null) {
-    <img class="blog-hero__img" src="@(Model.BlogPostModel.ThumbnailImage.Asset.Uri)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
+  @if(Model.BlogPostModel?.ThumbnailImage!= null) {
+    <img class="blog-hero__img" src="@(Model.BlogPostModel.ThumbnailImageUrl)" alt="@Model.BlogPostModel.ThumbnailImage.AltText"/>
   }
 </div>
 @if (Model.BlogPostModel?.Author != null){
   <div class="profile">
     @if (Model.BlogPostModel.Author?.Photo != null){
-      <img class="profile__img" src="@(Model.BlogPostModel.Author.Photo.Asset.Uri)" alt="@Model.BlogPostModel.Author.Photo.AltText" />
+      <img class="profile__img" src="@(Model.BlogPostModel.Author.PhotoUrl)" alt="@Model.BlogPostModel.Author.Photo.AltText" />
     }
     <span class="profile__name">
       @Model.BlogPostModel.Author?.Name
@@ -37,8 +39,8 @@
         }
         if (item.Type == "image")
         {
-          <div class="inline-img">
-            <img class="inline-img__img" src="@(item.Value().Asset.Uri)" alt="@item.Value().AltText"/>
+          <div class="inline-img">https://github.com/contensis/razor-page-leif-example.git
+            <img class="inline-img__img" src="@(ImageHelper.GetImageUrl(item.Value<Image>()))" alt="@item.Value().AltText"/>
             <div class="inline-img__content">
               <h2 class="inline-img__title">
                 @item.Value().Caption
