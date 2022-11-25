@@ -5,7 +5,7 @@ ENV srcdir "RazorPageLeifExample"
 ENV csproj "RazorPageLeifExample.csproj"
 WORKDIR /src
 COPY $srcdir/$csproj .
-# install project dependencies before copying altered source code 
+# install project dependencies before copying altered source code
 # to allow the image to build from cache to this point
 RUN dotnet restore $csproj
 COPY $srcdir .
