@@ -25,6 +25,10 @@ public class BlogModel : PageModel
 
         var entryId = HttpContext.Request.Query["entryId"];
 
+        string entryVersionStatus = HttpContext.Request.Headers.TryGetValue("x-entry-versionstatus", out var values) ? values.FirstOrDefault() ?? "published" : "published";
+
+        client.DefaultVersionStatus = Enum.Parse<VersionStatus>(entryVersionStatus, true);
+
         if (!string.IsNullOrEmpty(entryId))
         {
             // Get the entries by the id
