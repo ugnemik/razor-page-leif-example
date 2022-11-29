@@ -1,6 +1,7 @@
 
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG builder_image
+FROM ${builder_image} AS build
 
 WORKDIR /src
 # The below allows layer caching for the restore.
