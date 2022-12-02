@@ -12,7 +12,7 @@ env:
 
 jobs:
   build-latest:
-    name: Docker build latest code
+    name: Build Block
     runs-on: self-hosted
     outputs:
       image-uri: ${{ steps.build.outputs.image-uri }}
@@ -37,6 +37,7 @@ jobs:
           chmod +x build.sh
           ./build.sh
           echo "image-uri=$APP_IMAGE_URI" >> $GITHUB_OUTPUT
+          echo "Built Succesfully"
         shell: bash
 
   push-block:
