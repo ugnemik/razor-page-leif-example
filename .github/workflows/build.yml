@@ -41,7 +41,7 @@ jobs:
         shell: bash
 
   push-block:
-    name: Push Contensis block
+    name: Push Block to Contensis
     runs-on: self-hosted
     needs: build-latest
 
