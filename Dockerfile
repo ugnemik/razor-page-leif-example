@@ -1,6 +1,6 @@
 
 
-ARG builder_image = "mcr.microsoft.com/dotnet/sdk:7.0"
+ARG builder_image=mcr.microsoft.com/dotnet/sdk:7.0
 FROM ${builder_image} AS build
 
 WORKDIR /src
