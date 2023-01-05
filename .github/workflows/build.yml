@@ -46,7 +46,7 @@ jobs:
     needs: build-latest
 
     steps:
-      - name: Push block to website on leif
+      - name: Push Block to website on leif
         uses: contensis/block-push@v1
         with:
           block-id: leif-blogs
