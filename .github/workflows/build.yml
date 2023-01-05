@@ -29,7 +29,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build the Docker image, tag and push to registry
+      - name: Build the Docker image, tag and push to the registry
         id: build
         env:
           APP_IMAGE_URI: ${{ env.APP_IMAGE }}:build-${{ github.run_number }}
@@ -37,7 +37,7 @@ jobs:
           chmod +x build.sh
           ./build.sh
           echo "image-uri=$APP_IMAGE_URI" >> $GITHUB_OUTPUT
-          echo "Built Succesfully"
+          echo "Built Successfully"
         shell: bash
 
   push-block:
