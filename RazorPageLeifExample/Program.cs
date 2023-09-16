@@ -8,7 +8,7 @@ builder.Services
     .AddRazorPagesOptions(
         (options) =>
         {
-            // Override root to always render blog listing
+            // Override root to always render blog post
             options.Conventions.AddPageRoute("/Blog/BlogPost", "/");
             // Use a parameterised route template to render a blog post
             options.Conventions.AddPageRoute("/Blog/BlogPost", "/blog/{slug}");
@@ -32,13 +32,14 @@ app.UseHttpLogging();
 app.UseStatusCodePagesWithReExecute("/Error");
 app.MapRazorPages();
 
-// Contensis client connection details
+DotNetEnv.Env.TraversePath().Load();
+
 ContensisClient.Configure(
     new ContensisClientConfiguration(
-        rootUrl: "https://api-leif.cloud.contensis.com",
-        projectApiId: "website",
-        clientId: "2f3165ff-7841-4e7d-83c6-79770275bbe1",
-        sharedSecret: "23df7fdd8744496c91a9a3fd7d7cf16f-4908e4643eda4d6989f07f806ead697b-447133b6b55d4767a5a0bb47cebb87a2"
+        rootUrl: string.Format("https://api-{0}.cloud.contensis.com", DotNetEnv.Env.GetString("ALIAS")),
+        projectApiId: DotNetEnv.Env.GetString("PROJECT"),
+        clientId: DotNetEnv.Env.GetString("CONTENSIS_CLIENT_ID"),
+        sharedSecret: DotNetEnv.Env.GetString("CONTENSIS_CLIENT_SECRET")
     )
 );
 

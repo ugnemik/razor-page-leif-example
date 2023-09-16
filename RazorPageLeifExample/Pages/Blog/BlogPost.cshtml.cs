@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Zengenti.Contensis.Delivery;
+using Zengenti.Data;
+using Zengenti.Search;
 using RazorPageLeifExample.Models;
 
 namespace RazorPageLeifExample.Pages;
