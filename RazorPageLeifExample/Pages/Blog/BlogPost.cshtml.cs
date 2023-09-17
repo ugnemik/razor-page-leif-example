@@ -34,14 +34,6 @@ public class BlogModel : PageModel
             // Get the entries by the id
             BlogPostModel = client.Entries.Get<BlogPost>(entryId);
         }
-        else
-        {
-            // Get the blog post entry from the current path
-            var node = client.Nodes.GetByPath(HttpContext.Request.Path);
-
-            if (node != null)
-                BlogPostModel = node.Entry<BlogPost>();
-        }
 
         // return a 404 if BlogId is invalid
         if (BlogPostModel == null)
