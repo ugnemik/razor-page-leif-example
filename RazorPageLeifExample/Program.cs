@@ -10,8 +10,6 @@ builder.Services
         {
             // Override root to always render blog post
             options.Conventions.AddPageRoute("/Blog/BlogPost", "/");
-            // Use a parameterised route template to render a blog post
-            options.Conventions.AddPageRoute("/Blog/BlogPost", "/blog/{slug}");
         }
     );
 

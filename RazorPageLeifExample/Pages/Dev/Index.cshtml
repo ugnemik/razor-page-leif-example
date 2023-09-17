@@ -1,7 +1,7 @@
 @page
 @model IndexModel
 
-<h1 class="blogs__title">Our blogs</h1>
+<h1 class="blogs__title">Blogs which are available for render on your site</h1>
 @if ((Model.BlogsPayload != null) && (Model.BlogsPayload.TotalCount > 0)) {
     <ul class="blogs">
         @foreach (var blogItem in Model.BlogsPayload.Items) {
@@ -11,7 +11,7 @@
                     <img class="blog-card__img" src="@(blogItem.ThumbnailImageUrl)" alt="" />
                 }
                 <div class="related-blog__content">
-                        <h2 class="blog-card__title desktop"><a class="blog-card__link" href="@blogItem.Sys.Uri">@blogItem.Title</a></h2>
+                        <h2 class="blog-card__title desktop"><a class="blog-card__link" href="/?entryId=@(blogItem.Sys.Id)">@blogItem.Title</a></h2>
                 <!-- Truncate text as it can sometimes be too long -->
                 @if (blogItem.LeadParagraph != null) {
                     <p class="blog-card__text">@blogItem.LeadParagraph.Substring(0, Math.Min(blogItem.LeadParagraph.Length, 124))&hellip;</p>
