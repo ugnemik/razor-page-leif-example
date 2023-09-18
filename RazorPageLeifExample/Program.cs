@@ -35,7 +35,7 @@ DotNetEnv.Env.TraversePath().Load();
 ContensisClient.Configure(
     new ContensisClientConfiguration(
         rootUrl: string.Format("https://api-{0}.cloud.contensis.com", DotNetEnv.Env.GetString("ALIAS")),
-        projectApiId: DotNetEnv.Env.GetString("PROJECT"),
+        projectApiId: DotNetEnv.Env.GetString("PROJECT_API_ID"),
         clientId: DotNetEnv.Env.GetString("CONTENSIS_CLIENT_ID"),
         sharedSecret: DotNetEnv.Env.GetString("CONTENSIS_CLIENT_SECRET")
     )
