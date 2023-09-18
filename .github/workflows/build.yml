@@ -11,8 +11,8 @@ env:
   REGISTRY: ghcr.io
   APP_IMAGE: ghcr.io/${{ github.repository }}/${{ github.ref_name }}/razor-example
   BUILD_IMAGE: ghcr.io/${{ github.repository }}/${{ github.ref_name }}/razor-example:buildimage
-  CONTENSIS_CLIENT_ID: 7494e9bb-4c69-4a7a-a79f-eea6572b9ed8
-  CONTENSIS_SHARED_SECRET: 68aca2bb5c9b428eab13af730705b203-ebd07be19f244eb683c193da784a8ed7-7192aa3e694a4ab3b2ab0cd630cf02bf
+  CONTENSIS_CLIENT_ID: 8c880e9e-503d-44d3-9373-94a717077c70
+  CONTENSIS_SHARED_SECRET: f2d3f9bb04fd46e79414b06282024405-0444a63a7b76439b85d11f3cfb6f5b14-71693c1af749456994d7970f2b8e7af7
 
 jobs:
   build-latest:
@@ -52,9 +52,9 @@ jobs:
         id: push-block
         uses: contensis/block-push@v1
         with:
-          block-id: simon-leif-demo
+          block-id: my-dotnet-block
           alias: velocity-blocks
-          project-id: leif02
+          project-id: leif01
           client-id: ${{ env.CONTENSIS_CLIENT_ID }}
           shared-secret: ${{ env.CONTENSIS_SHARED_SECRET }}
           image-uri: ${{ env.APP_IMAGE }}:build-${{ github.run_number }}
