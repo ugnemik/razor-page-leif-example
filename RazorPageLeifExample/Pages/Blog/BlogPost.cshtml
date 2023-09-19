@@ -27,6 +27,7 @@
 
 
 <div class="blog__content">
+  <p class="lead" style="color:red; font-size: 3em;">dotnet blog record</p>
   <p class="lead">@Model.BlogPostModel?.LeadParagraph</p>
   @if (Model.BlogPostModel?.PostBody != null){
     @foreach(var item in Model.BlogPostModel.PostBody)
