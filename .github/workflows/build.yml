@@ -41,3 +41,18 @@ jobs:
           echo "image-uri=$APP_IMAGE_URI" >> $GITHUB_OUTPUT
           echo "Built Successfully"
         shell: bash
+  deploy:
+    name: Push block to Contensis
+    runs-on: ubuntu-latest
+    needs: build-latest
+    steps:
+      - name: Push block to Contensis
+        id: push-block
+        uses: contensis/block-push@v1
+        with:
+          block-id: dotnet-blog-record
+          alias: velocity-blocks
+          project-id: leif03
+          client-id: ${{ secrets.CONTENSIS_CLIENT_ID }}
+          shared-secret: ${{ secrets.CONTENSIS_SHARED_SECRET }}
+          image-uri: ${{ env.APP_IMAGE }}:build-${{ github.run_number }}
